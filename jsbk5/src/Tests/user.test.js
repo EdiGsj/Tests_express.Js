@@ -1,8 +1,6 @@
 const request = require('supertest');
 const app = require('../../app');
 
-//USER
-
 describe('GET /user', () => {
 
     it('dados da tabela', async () => {
@@ -20,39 +18,27 @@ describe('POST /user', () => {
     it('Login do DB', async () => {
 
         const response = await request(app).post('/login').send({
-            email: 'marcos@gmail.com',
-            password: '12345678910'
+            email: 'milly@gmail.com',
+            password: '123456789'
         });
 
         expect(response.status).toBe(200);
         expect(response.body.token).toBeDefined();
         token = response.body.token;
-        console.log(token);
         
     });
 
     it('Obtenção do ID usando o token Bearer', async () => {
         // token = token.split(' ');
-        console.log(token);
         const response = await request(app).get('/get_user')
             .set('Authorization', `Bearer ${token}`);
-
-    
         expect(response.status).toBe(200);
 
     });
 
-
-});
+}); 
 
 //CAR
-
-// describe('POST /car/add_prod', () => {
-//     it('Adicionar produto ao carrinho', async () => {
-//         const response = await request(app).post('/car/add_prod').send({ productId: 123 }); // Exemplo de dados a serem enviados
-//         expect(response.status).toBe(200);
-//     });
-// });
 
 describe('POST /car/create_car', () => {
     it('Criar carrinho', async () => {

@@ -1,6 +1,6 @@
 const cors = require('cors');
 const express = require('express');
-const DB = require('./src/Models/DB.js');
+const DB = require('./src/DB/DB.js');
 
 const app = express();
 app.use(express.json());
@@ -19,7 +19,6 @@ const PORT = 3000;
 app.listen(PORT, () => {
     DB.sync()
         .then(() => {
-            console.log('Modelo sincronizado com o DB');
             console.log(`Servidor pronto na porta ${PORT}`);
         })
         .catch((err) => {

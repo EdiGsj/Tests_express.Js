@@ -9,7 +9,7 @@ user.get('/get_user', authMiddleware ,get_user_id);
 user.get('/', get_all_users_handler);
 user.post('/create_user', create_user);
 user.put('/put', authMiddleware, update_user_id);  
-user.delete('/delete', authMiddleware, delete_user_id); 
+user.delete('/delete', authMiddleware, delete_user_id);
 
 module.exports = user;
 

@@ -10,18 +10,22 @@ const { get_user, add_user, update_user, delete_user, get_all_users } = require(
 const login = async(req, res) => {
 
     try{
-        const data =  req.body;
-        const user = await get_user({email: data.email})
+        const data =  req.body; // Dados de entrada email e password
 
-        const passwordMatch = await bcrypt.compare(data.password, user.password)
+        const user = await get_user({email: data.email});
+
+        const passwordMatch = await bcrypt.compare(data.password, user.password);
+
         if(!passwordMatch){
             res.status(401).json({ error: 'Invalid credentials' });
-        }
+        };
+
         const token = jsonwebtoken.sign({id:user.id},'Secreto',{expiresIn:'1h'});
+
         res.status(200).header('Authorization', `${token}`).json({ token });
     }
     catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(err.message + " Erro no login");
     };
 
 };
